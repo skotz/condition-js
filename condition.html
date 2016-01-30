@@ -1,0 +1,59 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Condition-JS Test</title>
+        <script src="condition.js"></script>
+        <style>
+            div > button {
+                margin: 0 auto;
+                display: block;
+            }
+        </style>
+    </head>
+    <body>
+        <div>
+            <button id="test-btn">1</button>
+        </div>
+        <script>
+            var btn = document.getElementById("test-btn");
+            btn.onclick = function() {
+                btn.innerHTML = parseInt(btn.innerHTML) + 1;
+            };
+            
+            // Perform an action whenever the button's value is divisible by 3
+            condition.on(function() {
+                return parseInt(btn.innerHTML) % 3 == 0;
+            }, function() {
+                btn.innerHTML = parseInt(btn.innerHTML) * 10 + 1;
+            });
+            
+            // Set the background color when the button's value is divisible by 2
+            condition.pick(function() {
+                return parseInt(btn.innerHTML) % 2 == 0;
+            }, function() {
+                // When divisible by 2
+                btn.style.backgroundColor = "red";
+            }, function() {
+                // When NOT divisible by 2
+                btn.style.backgroundColor = "yellow";
+            });
+            
+            // Run a method until it returns true
+            condition.until(function() {
+                if (btn.innerHTML.length > 5) {
+                    console.log("yep");
+                    return true;
+                } else {
+                    return false;
+                }
+            }, true);
+            
+            // Run an action until it doesn't throw an exception
+            condition.force(function() {
+                if (Math.random() < 0.99) {
+                    throw "llama";
+                }
+            }, true);
+        </script>
+    </body>
+</html>
