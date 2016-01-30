@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Condition-JS Test</title>
+        <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+        <script src="condition.jquery.js"></script>
+        <style>
+            div > button {
+                margin: 0 auto;
+                display: block;
+            }
+        </style>
+    </head>
+    <body>
+        <div>
+            <button id="test-btn">1</button>
+        </div>
+        <script>
+            $("#test-btn").click(function() {
+                $("#test-btn").html(parseInt($("#test-btn").html()) + 1);
+            });
+            
+            // Perform an action whenever the button's value is divisible by 3
+            $("#test-btn").condition(function() {
+                return $(this).html() % 3 == 0;
+            }, function() {
+                $(this).append("1");
+            });
+        </script>
+    </body>
+</html>
